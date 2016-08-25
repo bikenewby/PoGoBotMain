@@ -23,6 +23,9 @@ namespace PokemonGo.RocketAPI.Console
         [XmlIgnore]
         private readonly string _configsPath = Path.Combine(Directory.GetCurrentDirectory(), "Settings");
 
+        [XmlIgnore]
+        private BOTSessions _sessionsConfig;
+
         public AuthType AuthType
         {
             get { return (AuthType)Enum.Parse(typeof(AuthType), UserSettings.Default.AuthType, true); }
@@ -257,11 +260,38 @@ namespace PokemonGo.RocketAPI.Console
         }
 
         //KS
-        public int RunningMinute
+        public int MaxSessionRunningMinute
         {
-            get { return UserSettings.Default.MaxRunningMinute; }
-            set { UserSettings.Default.MaxRunningMinute = value; }
+            get { return UserSettings.Default.MaxSessionRunningMinute; }
+            set { UserSettings.Default.MaxSessionRunningMinute = value; }
         }
+        public int MaxLevel
+        {
+            get { return UserSettings.Default.MaxLevel; }
+            set { UserSettings.Default.MaxLevel = value; }
+        }
+        public bool UseMultiSessions
+        {
+            get { return UserSettings.Default.UseMultiSessions; }
+            set { UserSettings.Default.UseMultiSessions = value; }
+        }
+        public int SessionWaitTimeInMinute
+        {
+            get { return UserSettings.Default.SessionWaitTimInMinute; }
+            set { UserSettings.Default.SessionWaitTimInMinute = value; }
+        }
+
+        [XmlIgnore]
+        public BOTSessions MultiSessionsConfig
+        {
+            get
+            {
+                //_sessionsConfig = new BOTSessions(UserSettings.Default.GoogleEmail, UserSettings.Default.GooglePassword, UserSettings.Default.DefaultLatitude, UserSettings.Default.DefaultLongitude, UserSettings.Default.MaxSessionRunningMinute);
+                return _sessionsConfig;
+            }
+            set { _sessionsConfig = value; }
+        }
+        //-----------
 
         [XmlIgnore]
         public string DeviceId = "8525f5d8201f78b5";
@@ -322,6 +352,7 @@ namespace PokemonGo.RocketAPI.Console
             _inventoryBerries.Add(2, ItemId.ItemNanabBerry);
             _inventoryBerries.Add(3, ItemId.ItemBlukBerry);
             _inventoryBerries.Add(4, ItemId.ItemRazzBerry);
+            _sessionsConfig = new BOTSessions(UserSettings.Default.GoogleEmail, UserSettings.Default.GooglePassword, UserSettings.Default.DefaultLatitude, UserSettings.Default.DefaultLongitude, UserSettings.Default.MaxSessionRunningMinute);
         }
         private IDictionary<ItemId, int> _itemRecycleFilter;
         public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter(IEnumerable<ItemData> myItems)
@@ -331,11 +362,11 @@ namespace PokemonGo.RocketAPI.Console
                 _itemRecycleFilter = new Dictionary<ItemId, int>
                 {
                     // KS
-                    {ItemId.ItemPokeBall, 90},
-                    {ItemId.ItemGreatBall, 150},
+                    {ItemId.ItemPokeBall, 50},
+                    {ItemId.ItemGreatBall, 90},
                     //
                     {ItemId.ItemUnknown, 0},
-                    {ItemId.ItemRevive, 15},
+                    {ItemId.ItemRevive, 5},
                     {ItemId.ItemMaxRevive, 25},
                     {ItemId.ItemLuckyEgg, 200},
                     {ItemId.ItemIncenseOrdinary, 100},

@@ -111,19 +111,25 @@
       <Value Profile="(Default)">Office.gpx</Value>
     </Setting>
     <Setting Name="GoogleEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pkm.path@gmail.com</Value>
+      <Value Profile="(Default)">Plakratong@gmail.com</Value>
     </Setting>
     <Setting Name="GooglePassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">p0kem0ng0</Value>
+      <Value Profile="(Default)">devgru009</Value>
     </Setting>
     <Setting Name="EvolveKeepCandiesValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">150</Value>
     </Setting>
-    <Setting Name="MaxRunningMinute" Type="System.Int32" Scope="User">
+    <Setting Name="MaxSessionRunningMinute" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="MaxLevel" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="UseMultiSessions" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SessionWaitTimInMinute" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

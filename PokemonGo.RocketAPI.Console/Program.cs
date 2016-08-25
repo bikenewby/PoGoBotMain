@@ -44,9 +44,11 @@ namespace PokemonGo.RocketAPI.Console
                 // If the current program is not the latest version, ensure we skip saving the file after loading
                 // This is to prevent saving the file with new options at their default values so we can check for differences
                 XmlSettings.LoadSettings();
+                // After this point the object instantiated from Settings class will always use values from settings.xml file
             }
             else
             {
+                // KS: Create new setting XML configuration file (case file not existed)
                 XmlSettings.CreateSettings(new Settings());
             }
 
@@ -54,7 +56,20 @@ namespace PokemonGo.RocketAPI.Console
             {
                 try
                 {
-                    new Logic.Logic(new Settings()).Execute().Wait();
+                    Settings botSetting = new Console.Settings();
+                    BOTSessions multiSessionConfig = botSetting.MultiSessionsConfig;
+                    //KS
+                    if (botSetting.UseMultiSessions)
+                    {
+                        Logger.Write("Start running MULTI-SESSIONS using id: " + multiSessionConfig.SessionList[0].Uid);
+                    } else
+                    {
+                        Logger.Write("Start running using id: " + botSetting.GoogleEmail);
+                    }
+                    //initialize session start time (in case not using MultiSessions)
+                    Logic.Logic.sessionStartTime = DateTime.Now;
+                    //---
+                    new Logic.Logic(botSetting).Execute().Wait();
                 }
                 catch (PtcOfflineException)
                 {

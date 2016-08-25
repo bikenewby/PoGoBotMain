@@ -62,7 +62,7 @@ namespace PokemonGo.RocketAPI.Logic.Tasks
                     await BotStats.GetPokemonCount();
                     var profile = await Logic._client.Player.GetPlayer();
                     BotStats.TotalStardust = profile.PlayerData.Currencies.ToArray()[1].Amount;
-                    BotStats.UpdateConsoleTitle();
+                    await BotStats.UpdateConsoleTitle();
                 }
                 
                 if (encounter?.CaptureProbability?.CaptureProbability_ != null)
@@ -99,7 +99,7 @@ namespace PokemonGo.RocketAPI.Logic.Tasks
 
                 attemptCounter++;
             }
-            while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
+            while ((caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape) && !BotStats.sessionExit);
         }
         public static async Task<ItemId> GetBestBall(dynamic encounter, float probability)
         {

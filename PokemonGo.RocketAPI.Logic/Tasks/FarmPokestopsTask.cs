@@ -50,7 +50,7 @@ namespace PokemonGo.RocketAPI.Logic.Tasks
             else
                 Logger.Write($"Found {pokestops.Count()} {(pokestops.Count() == 1 ? "Pokestop" : "Pokestops")}", LogLevel.Info);
 
-            while (pokestops.Any())
+            while (pokestops.Any() && !BotStats.sessionExit)
             {
                 if (Logic._client.Settings.ExportPokemonToCsvEveryMinutes > 0 && ExportPokemonToCsv._lastExportTime.AddMinutes(Logic._client.Settings.ExportPokemonToCsvEveryMinutes).Ticks < DateTime.Now.Ticks)
                 {
@@ -159,13 +159,13 @@ namespace PokemonGo.RocketAPI.Logic.Tasks
                     else if (fortSearch.ExperienceAwarded != 0)
                     {
                         BotStats.ExperienceThisSession += fortSearch.ExperienceAwarded;
-                        BotStats.UpdateConsoleTitle();
+                        await BotStats.UpdateConsoleTitle();
                         Logger.Write($"XP: {fortSearch.ExperienceAwarded}, Gems: {fortSearch.GemsAwarded}, Items: {StringUtils.GetSummedFriendlyNameOfItemAwardList(fortSearch.ItemsAwarded)}", LogLevel.Pokestop);
                         RecycleItemsTask._recycleCounter++;
                         HatchEggsTask._hatchUpdateDelay++;
                         break; //Continue with program as loot was succesfull.
                     }
-                } while (fortTry < retryNumber - zeroCheck); //Stop trying if softban is cleaned earlier or if 40 times fort looting failed.
+                } while ((fortTry < retryNumber - zeroCheck) && (!BotStats.sessionExit)); //Stop trying if softban is cleaned earlier or if 40 times fort looting failed.
 
                 if (RecycleItemsTask._recycleCounter >= 5)
                     await RecycleItemsTask.Execute();

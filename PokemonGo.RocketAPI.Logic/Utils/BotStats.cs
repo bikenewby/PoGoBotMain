@@ -37,6 +37,17 @@ namespace PokemonGo.RocketAPI.Logic.Utils
         public static DateTime InitSessionDateTime = DateTime.Now;
         public static TimeSpan Duration = DateTime.Now - InitSessionDateTime;
 
+        //KS
+        private static int GetCurrentUserLevel()
+        {
+            var stats = Inventory.GetPlayerStats().Result;
+            var stat = stats.FirstOrDefault();
+            return stat.Level;
+        }
+
+        public static Boolean sessionExit = false;
+        //----
+
         public static string GetCurrentInfo()
         {
             var stats = Inventory.GetPlayerStats().Result;
@@ -95,11 +106,17 @@ namespace PokemonGo.RocketAPI.Logic.Utils
                 _playerName, FormatRuntime(), GetCurrentInfo(), ExperienceThisSession / GetRuntime(),
                 PokemonCaughtThisSession / GetRuntime(), TotalStardust, PokemonTransferedThisSession, ItemsRemovedThisSession, TotalPokesInBag, TotalPokesInPokedexCaptured, TotalPokesInPokedex, KmWalkedCurrent, GitChecker.CurrentVersion);
             //KS
-            if ((Logic._client.Settings.RunningMinute != 0) && ((DateTime.Now - InitSessionDateTime).TotalMinutes >= Logic._client.Settings.RunningMinute))
+            if (!Logic._logic.IsValidRuntime())
             {
-                Console.WriteLine("Exit... Reaching maximum running hour.");
+                Console.WriteLine("Exit... Reaching maximum running minute [" + Logic._logic.CurrentRuntimeInMinute() + "]");
                 Console.WriteLine(Console.Title);
-                System.Environment.Exit(1);
+                sessionExit = true;
+            }
+            if (GetCurrentUserLevel() >= Logic._client.Settings.MaxLevel)
+            {
+                Console.WriteLine("Exit... Reaching maximum defined level for BOT ([" + Logic._client.Settings.MaxLevel + "] See config file).");
+                Console.WriteLine(Console.Title);
+                sessionExit = true;
             }
             //----
         }

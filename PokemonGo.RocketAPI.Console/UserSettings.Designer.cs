@@ -457,7 +457,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pkm.path@gmail.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Plakratong@gmail.com")]
         public string GoogleEmail {
             get {
                 return ((string)(this["GoogleEmail"]));
@@ -469,7 +469,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("p0kem0ng0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("devgru009")]
         public string GooglePassword {
             get {
                 return ((string)(this["GooglePassword"]));
@@ -494,24 +494,48 @@ namespace PokemonGo.RocketAPI.Console {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int MaxRunningMinute {
+        public int MaxSessionRunningMinute {
             get {
-                return ((int)(this["MaxRunningMinute"]));
+                return ((int)(this["MaxSessionRunningMinute"]));
             }
             set {
-                this["MaxRunningMinute"] = value;
+                this["MaxSessionRunningMinute"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
         public int MaxLevel {
             get {
                 return ((int)(this["MaxLevel"]));
             }
             set {
                 this["MaxLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseMultiSessions {
+            get {
+                return ((bool)(this["UseMultiSessions"]));
+            }
+            set {
+                this["UseMultiSessions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int SessionWaitTimInMinute {
+            get {
+                return ((int)(this["SessionWaitTimInMinute"]));
+            }
+            set {
+                this["SessionWaitTimInMinute"] = value;
             }
         }
     }

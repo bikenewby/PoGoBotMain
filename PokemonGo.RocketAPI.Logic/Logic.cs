@@ -35,6 +35,7 @@ namespace PokemonGo.RocketAPI.Logic
         public static Inventory _inventory;
         public static BotStats _stats;
         public static Navigation _navigation;
+        public static Logic _logic;
         private GetPlayerResponse _playerProfile;
 
         public readonly string ConfigsPath = Path.Combine(Directory.GetCurrentDirectory(), "Settings");
@@ -42,8 +43,34 @@ namespace PokemonGo.RocketAPI.Logic
         private bool _isInitialized = false;
 
         // KS
-        private DateTime startTime = DateTime.Now;
+        public static DateTime sessionStartTime;
+        public static int currentSession = 0;
+        public static bool loadedSession = false;
         //--------
+
+        // KS
+        public int CurrentRuntimeInMinute()
+        {
+            return Convert.ToInt32(((DateTime.Now) - Logic.sessionStartTime).TotalMinutes);
+        }
+
+        public bool IsValidRuntime()
+        {
+            if (_client.Settings.MaxSessionRunningMinute != 0)
+            {
+                if (CurrentRuntimeInMinute() >= _client.Settings.MaxSessionRunningMinute)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+                return true;  // Always return true if the MaxSessionRunningMinute config is set to 0
+        }
+        // --------
 
         public Logic(ISettings clientSettings)
         {
@@ -53,21 +80,61 @@ namespace PokemonGo.RocketAPI.Logic
             _inventory = new Inventory();
             _stats = new BotStats();
             _navigation = new Navigation();
+            _logic = this;
         }
 
         public async Task Execute()
         {
+
+            // KS
+            if (_client.Settings.UseMultiSessions)
+            {
+                if (!loadedSession)
+                {
+                    // Shift current session
+                    currentSession++;
+                    // If already completing all
+                    if (currentSession > _client.Settings.MultiSessionsConfig.SessionList.Count)
+                    {
+                        Logger.Write("Complete all sessions. Exit program.");
+                        System.Environment.Exit(0);
+                    }
+                    // Reset sessionStartTime
+                    Logger.Write("Start session: " + _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Seq + " [" + _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Uid + "]");
+                    sessionStartTime = DateTime.Now;
+                    _client.Settings.GoogleEmail = _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Uid;
+                    _client.Settings.GooglePassword = _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Pwd;
+                    _client.Settings.DefaultLatitude = _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Lat;
+                    _client.Settings.DefaultLongitude = _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].Lng;
+                    _client.Settings.MaxSessionRunningMinute = _client.Settings.MultiSessionsConfig.SessionList[currentSession - 1].SessionMinute;
+                    loadedSession = true;
+                    _isInitialized = false; // Trigger new login
+                    BotStats.sessionExit = false;
+                }
+            }
+            //----------------
+
             if (!_isInitialized)
             {
                 GitChecker.CheckVersion();
-
-                var latLngFromFile = PositionCheckState.LoadPositionFromDisk();
-                if (latLngFromFile != null && Math.Abs(latLngFromFile.Item1) > 0 && Math.Abs(latLngFromFile.Item2) > 0)
-                    _client.Player.SetCoordinates(latLngFromFile.Item1, latLngFromFile.Item2,
-                        _client.Settings.DefaultAltitude);
+                //KS
+                // If not using multisessions, check & load coordinate from lastCoord file
+                // If using multisessions, always load coordinate from multisession config
+                if (!_client.Settings.UseMultiSessions)
+                {
+                    var latLngFromFile = PositionCheckState.LoadPositionFromDisk();
+                    if (latLngFromFile != null && Math.Abs(latLngFromFile.Item1) > 0 && Math.Abs(latLngFromFile.Item2) > 0)
+                        _client.Player.SetCoordinates(latLngFromFile.Item1, latLngFromFile.Item2,
+                            _client.Settings.DefaultAltitude);
+                    else
+                        _client.Player.SetCoordinates(_client.Settings.DefaultLatitude, _client.Settings.DefaultLongitude,
+                            _client.Settings.DefaultAltitude);
+                }
                 else
-                    _client.Player.SetCoordinates(_client.Settings.DefaultLatitude, _client.Settings.DefaultLongitude,
-                        _client.Settings.DefaultAltitude);
+                {
+                    _client.Player.SetCoordinates(_client.Settings.DefaultLatitude, _client.Settings.DefaultLongitude,_client.Settings.DefaultAltitude);
+                }
+                //---------
 
                 if (Math.Abs(_clientSettings.DefaultLatitude) <= 0  || Math.Abs(_clientSettings.DefaultLongitude) <= 0)
                 {
@@ -91,11 +158,11 @@ namespace PokemonGo.RocketAPI.Logic
             }
             Logger.Write($"Logging in via: {_clientSettings.AuthType}", LogLevel.Info);
             // KS
-            while ((((DateTime.Now) - startTime).TotalMinutes < _clientSettings.RunningMinute) || (_clientSettings.RunningMinute == 0))
+            while (IsValidRuntime() && !BotStats.sessionExit)
             //while (true)
             {
-                Logger.Write("Total runtime: " + (((DateTime.Now) - startTime).TotalMinutes) + " minutes");
-                Logger.Write("Capped running runtime: " + _clientSettings.RunningMinute + " minutes");
+                Logger.Write("Total runtime: " + CurrentRuntimeInMinute() + " minutes");
+                Logger.Write("Capped running runtime: " + _clientSettings.MaxSessionRunningMinute + " minutes");
                 try
                 {
                     switch (_clientSettings.AuthType)
@@ -152,7 +219,21 @@ namespace PokemonGo.RocketAPI.Logic
                     Logger.Write("Error, trying automatic restart..", LogLevel.Error);
                     await Execute();
                 }
-                await Task.Delay(10000);
+                if (_client.Settings.SessionWaitTimeInMinute != 0)
+                {
+                    if (currentSession < _client.Settings.MultiSessionsConfig.SessionList.Count)
+                    { 
+                        Logger.Write("Pause " + _client.Settings.SessionWaitTimeInMinute + " minutes before starting new session.");
+                        await Task.Delay(_client.Settings.SessionWaitTimeInMinute * 60 * 1000);
+                    }
+                }
+                // If not last session, shift to next session
+                if (_client.Settings.UseMultiSessions)
+                {
+                    Logger.Write("End of session#" + currentSession + Environment.NewLine);
+                    loadedSession = false;
+                    await Execute();
+                }
             }
         }
 
@@ -174,16 +255,15 @@ namespace PokemonGo.RocketAPI.Logic
             Logger.Write($"Client logged in", LogLevel.Info);
             // KS
             //while (true)
-            while ((((DateTime.Now) - startTime).TotalMinutes < _clientSettings.RunningMinute) || (_clientSettings.RunningMinute == 0))
+            while (IsValidRuntime() && !BotStats.sessionExit)
                 {
-                Logger.Write("Total runtime: " + (((DateTime.Now) - startTime).TotalMinutes) + "minutes");
-                Logger.Write("Capped running runtime: " + _clientSettings.RunningMinute + "minutes");
                 if (!_isInitialized)
                 {
                     await Inventory.GetCachedInventory();
                     _playerProfile = await _client.Player.GetPlayer();
-                    BotStats.UpdateConsoleTitle();
-
+                    // KS
+                    await BotStats.UpdateConsoleTitle();
+                    // ----
                     var stats = await Inventory.GetPlayerStats();
                     var stat = stats.FirstOrDefault();
                     if (stat != null) BotStats.KmWalkedOnStart = stat.KmWalked;
@@ -228,7 +308,6 @@ namespace PokemonGo.RocketAPI.Logic
                 var inventory = await _client.GetInventory();
                 var pokemons = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p != null && p?.PokemonId > 0);
                 */
-
                 await Task.Delay(10000);
             }
         }
