@@ -505,7 +505,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("22")]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
         public int MaxLevel {
             get {
                 return ((int)(this["MaxLevel"]));
