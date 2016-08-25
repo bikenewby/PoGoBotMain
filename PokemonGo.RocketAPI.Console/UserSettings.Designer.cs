@@ -409,7 +409,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13.729934")]
+        [global::System.Configuration.DefaultSettingValueAttribute("13.722621")]
         public double DefaultLatitude {
             get {
                 return ((double)(this["DefaultLatitude"]));
@@ -421,7 +421,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100.519558")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100.518206")]
         public double DefaultLongitude {
             get {
                 return ((double)(this["DefaultLongitude"]));
@@ -457,7 +457,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Plakratong@gmail.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("bikenewby5@gmail.com")]
         public string GoogleEmail {
             get {
                 return ((string)(this["GoogleEmail"]));
@@ -469,7 +469,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("devgru009")]
+        [global::System.Configuration.DefaultSettingValueAttribute("w0ngc0rny")]
         public string GooglePassword {
             get {
                 return ((string)(this["GooglePassword"]));
@@ -493,7 +493,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int MaxSessionRunningMinute {
             get {
                 return ((int)(this["MaxSessionRunningMinute"]));
@@ -517,7 +517,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseMultiSessions {
             get {
                 return ((bool)(this["UseMultiSessions"]));

@@ -99,10 +99,10 @@
       <Value Profile="(Default)">1500</Value>
     </Setting>
     <Setting Name="DefaultLatitude" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">13.729934</Value>
+      <Value Profile="(Default)">13.722621</Value>
     </Setting>
     <Setting Name="DefaultLongitude" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">100.519558</Value>
+      <Value Profile="(Default)">100.518206</Value>
     </Setting>
     <Setting Name="MaxTravelDistanceInMeters" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1500</Value>
@@ -111,22 +111,22 @@
       <Value Profile="(Default)">Office.gpx</Value>
     </Setting>
     <Setting Name="GoogleEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Plakratong@gmail.com</Value>
+      <Value Profile="(Default)">bikenewby5@gmail.com</Value>
     </Setting>
     <Setting Name="GooglePassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">devgru009</Value>
+      <Value Profile="(Default)">w0ngc0rny</Value>
     </Setting>
     <Setting Name="EvolveKeepCandiesValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="MaxSessionRunningMinute" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="MaxLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">24</Value>
     </Setting>
     <Setting Name="UseMultiSessions" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SessionWaitTimInMinute" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
