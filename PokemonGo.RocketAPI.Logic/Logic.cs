@@ -235,6 +235,8 @@ namespace PokemonGo.RocketAPI.Logic
                     await Execute();
                 }
             }
+            if (BotStats.sessionExit)
+                Logger.Write("BOT Ended...");
         }
 
         public async Task RefreshTokens()
