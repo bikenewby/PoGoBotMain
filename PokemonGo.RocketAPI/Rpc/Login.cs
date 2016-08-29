@@ -40,6 +40,17 @@ namespace PokemonGo.RocketAPI.Rpc
 
         public async Task DoLogin()
         {
+            switch (_client.AuthType)
+            {
+                case AuthType.Google:
+                    login =  new GoogleLogin(_client.Settings.GoogleEmail, _client.Settings.GooglePassword);
+                    break;
+                case AuthType.Ptc:
+                    login =  new PtcLogin(_client.Settings.PtcUsername, _client.Settings.PtcPassword);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(_client.AuthType), "Unknown AuthType");
+            }
             _client.AuthToken = await login.GetAccessToken().ConfigureAwait(false);
             await SetServer().ConfigureAwait(false);
         }

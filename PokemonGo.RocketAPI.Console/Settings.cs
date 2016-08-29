@@ -362,17 +362,21 @@ namespace PokemonGo.RocketAPI.Console
                 _itemRecycleFilter = new Dictionary<ItemId, int>
                 {
                     // KS
-                    {ItemId.ItemPokeBall, 50},
-                    {ItemId.ItemGreatBall, 90},
+                    {ItemId.ItemPokeBall, 20},
+                    {ItemId.ItemGreatBall, 100},
+                    {ItemId.ItemUltraBall, 100},
                     //
                     {ItemId.ItemUnknown, 0},
-                    {ItemId.ItemRevive, 5},
+                    {ItemId.ItemRevive, 80},
+                    {ItemId.ItemHyperPotion, 50},
+                    {ItemId.ItemMaxPotion, 50},
+                    {ItemId.ItemPotion, 30},
                     {ItemId.ItemMaxRevive, 25},
                     {ItemId.ItemLuckyEgg, 200},
-                    {ItemId.ItemIncenseOrdinary, 100},
-                    {ItemId.ItemIncenseSpicy, 100},
-                    {ItemId.ItemIncenseCool, 100},
-                    {ItemId.ItemIncenseFloral, 100},
+                    {ItemId.ItemIncenseOrdinary, 50},
+                    {ItemId.ItemIncenseSpicy, 50},
+                    {ItemId.ItemIncenseCool, 50},
+                    {ItemId.ItemIncenseFloral, 50},
                     {ItemId.ItemTroyDisk, 100},
                     {ItemId.ItemXAttack, 100},
                     {ItemId.ItemXDefense, 100},
@@ -449,16 +453,28 @@ namespace PokemonGo.RocketAPI.Console
             {
                 //Type of pokemons not to transfer
                 var defaultPokemon = new List<PokemonId> {
-                    PokemonId.Dragonite, PokemonId.Charizard, PokemonId.Zapdos, PokemonId.Snorlax, PokemonId.Alakazam, PokemonId.Mew, PokemonId.Mewtwo,
-                    // KS
-                    PokemonId.Eevee, PokemonId.Vaporeon, PokemonId.Jolteon, PokemonId.Flareon,
-                    PokemonId.Ivysaur, PokemonId.Venusaur, PokemonId.Charmander, PokemonId.Charmeleon, PokemonId.Charizard,
-                    PokemonId.Wartortle, PokemonId.Blastoise,
+                    PokemonId.Bulbasaur,PokemonId.Ivysaur,PokemonId.Venusaur,
+                    PokemonId.Charmander, PokemonId.Charmeleon, PokemonId.Charizard,
+                    PokemonId.Squirtle, PokemonId.Wartortle, PokemonId.Blastoise,
+                    PokemonId.Butterfree,PokemonId.Beedrill,PokemonId.Pidgeot,PokemonId.Raticate,PokemonId.Fearow,PokemonId.Arbok, PokemonId.Scyther,
                     PokemonId.Pikachu, PokemonId.Raichu,
-                    PokemonId.Nidoqueen, PokemonId.Nidoking, PokemonId.Gloom, PokemonId.Vileplume, PokemonId.Golduck,
-                    PokemonId.Growlithe, PokemonId.Arcanine, PokemonId.Poliwrath, PokemonId.Golem, PokemonId.Ponyta, PokemonId.Rapidash, PokemonId.Slowbro, PokemonId.Cubone,
-                    PokemonId.Rhyhorn, PokemonId.Scyther, PokemonId.Magmar, PokemonId.Gyarados, PokemonId.Lapras,
-                    PokemonId.Aerodactyl, PokemonId.Snorlax, PokemonId.Zapdos
+                    PokemonId.Sandslash, PokemonId.Nidoqueen, PokemonId.Nidoking,
+                    PokemonId.Clefable, PokemonId.Ninetales, PokemonId.Wigglytuff, PokemonId.Golbat, PokemonId.Vileplume, PokemonId.Parasect, PokemonId.Venomoth,
+                    PokemonId.Dugtrio, PokemonId.Meowth, PokemonId.Persian, PokemonId.Golduck,
+                    PokemonId.Primeape, PokemonId.Arcanine, PokemonId.Poliwrath, PokemonId.Alakazam, PokemonId.Machamp,
+                    PokemonId.Victreebel, PokemonId.Tentacruel, PokemonId.Golem, PokemonId.Rapidash,
+                    PokemonId.Slowbro, PokemonId.Magneton, PokemonId.Farfetchd, PokemonId.Dodrio, PokemonId.Dewgong, PokemonId.Muk, PokemonId.Cloyster,
+                    PokemonId.Gengar, PokemonId.Onix, PokemonId.Hypno, PokemonId.Kingler, PokemonId.Electrode,
+                    PokemonId.Exeggutor, PokemonId.Marowak, PokemonId.Hitmonchan, PokemonId.Lickitung, PokemonId.Weezing,
+                    PokemonId.Rhyhorn, PokemonId.Rhydon,
+                    PokemonId.Chansey, PokemonId.Kangaskhan, PokemonId.Seadra, PokemonId.Seaking, PokemonId.Starmie, PokemonId.MrMime,
+                    PokemonId.Jynx, PokemonId.Electabuzz, PokemonId.Magmar, PokemonId.Tauros,
+                    PokemonId.Gyarados, PokemonId.Lapras,
+                    PokemonId.Ditto, PokemonId.Porygon, PokemonId.Omastar, PokemonId.Kabutops, PokemonId.Aerodactyl,
+                    PokemonId.Snorlax, PokemonId.Articuno, PokemonId.Zapdos, PokemonId.Moltres,
+                    PokemonId.Dratini, PokemonId.Dragonair, PokemonId.Dragonite,
+                    PokemonId.Eevee, PokemonId.Vaporeon, PokemonId.Jolteon, PokemonId.Flareon,
+                    PokemonId.Mew, PokemonId.Mewtwo
                 };
                 _pokemonsToNotTransfer = _pokemonsToNotTransfer ?? LoadPokemonList("PokemonsToNotTransfer.ini", defaultPokemon);
                 return _pokemonsToNotTransfer;

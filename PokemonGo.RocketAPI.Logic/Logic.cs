@@ -132,11 +132,11 @@ namespace PokemonGo.RocketAPI.Logic
                 }
                 else
                 {
-                    _client.Player.SetCoordinates(_client.Settings.DefaultLatitude, _client.Settings.DefaultLongitude,_client.Settings.DefaultAltitude);
+                    _client.Player.SetCoordinates(_client.Settings.DefaultLatitude, _client.Settings.DefaultLongitude, _client.Settings.DefaultAltitude);
                 }
                 //---------
 
-                if (Math.Abs(_clientSettings.DefaultLatitude) <= 0  || Math.Abs(_clientSettings.DefaultLongitude) <= 0)
+                if (Math.Abs(_clientSettings.DefaultLatitude) <= 0 || Math.Abs(_clientSettings.DefaultLongitude) <= 0)
                 {
                     Logger.Write($"Please change first Latitude and/or Longitude because currently your using default values!", LogLevel.Error);
                     for (int i = 3; i > 0; i--)
@@ -156,7 +156,7 @@ namespace PokemonGo.RocketAPI.Logic
                     }
                 }
             }
-            Logger.Write($"Logging in via: {_clientSettings.AuthType}", LogLevel.Info);
+            Logger.Write($"Logging in via: {_clientSettings.AuthType} [" + _client.Settings.GoogleEmail + "]", LogLevel.Info);
             // KS
             while (IsValidRuntime() && !BotStats.sessionExit)
             //while (true)

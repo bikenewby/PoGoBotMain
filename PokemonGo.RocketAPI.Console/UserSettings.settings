@@ -6,7 +6,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="TransferPokemonKeepAllAboveIVValue" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">99</Value>
+      <Value Profile="(Default)">80</Value>
     </Setting>
     <Setting Name="WalkingSpeedInKilometerPerHour" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>
@@ -36,13 +36,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="EvolveOnlyPokemonAboveIV" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="EvolvePokemon" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="EvolveOnlyPokemonAboveIVValue" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">95</Value>
+      <Value Profile="(Default)">80</Value>
     </Setting>
     <Setting Name="TransferPokemon" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -96,7 +96,7 @@
       <Value Profile="(Default)">random</Value>
     </Setting>
     <Setting Name="TransferPokemonKeepAllAboveCPValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1500</Value>
+      <Value Profile="(Default)">600</Value>
     </Setting>
     <Setting Name="DefaultLatitude" Type="System.Double" Scope="User">
       <Value Profile="(Default)">13.722621</Value>
@@ -126,10 +126,10 @@
       <Value Profile="(Default)">25</Value>
     </Setting>
     <Setting Name="UseMultiSessions" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SessionWaitTimInMinute" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>
