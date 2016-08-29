@@ -120,10 +120,10 @@
       <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="MaxSessionRunningMinute" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="MaxLevel" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">24</Value>
+      <Value Profile="(Default)">25</Value>
     </Setting>
     <Setting Name="UseMultiSessions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

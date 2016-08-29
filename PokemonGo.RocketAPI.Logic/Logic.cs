@@ -221,7 +221,7 @@ namespace PokemonGo.RocketAPI.Logic
                 }
                 if (_client.Settings.SessionWaitTimeInMinute != 0)
                 {
-                    if (currentSession < _client.Settings.MultiSessionsConfig.SessionList.Count)
+                    if ((currentSession < _client.Settings.MultiSessionsConfig.SessionList.Count) && (_client.Settings.UseMultiSessions))
                     { 
                         Logger.Write("Pause " + _client.Settings.SessionWaitTimeInMinute + " minutes before starting new session.");
                         await Task.Delay(_client.Settings.SessionWaitTimeInMinute * 60 * 1000);

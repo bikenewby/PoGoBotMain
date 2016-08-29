@@ -493,7 +493,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
         public int MaxSessionRunningMinute {
             get {
                 return ((int)(this["MaxSessionRunningMinute"]));
@@ -505,7 +505,7 @@ namespace PokemonGo.RocketAPI.Console {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
         public int MaxLevel {
             get {
                 return ((int)(this["MaxLevel"]));
