@@ -17,6 +17,17 @@ namespace PokemonGo.RocketAPI.Logic.Tasks
     {
         public static async Task Execute(dynamic encounter, MapPokemon pokemon, FortData currentFortData = null, ulong encounterId = 0)
         {
+            // KS
+            if (Logic._clientSettings.UseMultiSessions)
+            {
+                if (!Logic._clientSettings.MultiSessionsConfig.SessionList[Logic.currentSession-1].CatchPkm)
+                {
+                    // Current session indicates not catching pokemon, return immediately
+                    return;
+                }
+            }
+            //-----
+
             // If the encounter is null nothing will work below, so exit now
             if (encounter == null) return;
             float probability = encounter.CaptureProbability?.CaptureProbability_[0];
