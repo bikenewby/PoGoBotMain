@@ -14,8 +14,10 @@ namespace PokemonGo.RocketAPI
         private double lat;
         private double lng;
         private int sessionMinute;
+        private bool recycleKeepHealthItems;
+        private bool catchPkm;
 
-        public BOTSessionItem(int seq, string uid, string pwd, double lat, double lng, int sessionMinute)
+        public BOTSessionItem(int seq, string uid, string pwd, double lat, double lng, int sessionMinute, bool recycleKeepHealthItems, bool catchPkm)
         {
             this.seq = seq;
             this.uid = uid;
@@ -23,6 +25,8 @@ namespace PokemonGo.RocketAPI
             this.lat = lat;
             this.lng = lng;
             this.sessionMinute = sessionMinute;
+            this.recycleKeepHealthItems = recycleKeepHealthItems;
+            this.catchPkm = catchPkm;
         }
 
         public int Seq
@@ -100,6 +104,32 @@ namespace PokemonGo.RocketAPI
             set
             {
                 sessionMinute = value;
+            }
+        }
+
+        public bool RecycleKeepHealthItems
+        {
+            get
+            {
+                return recycleKeepHealthItems;
+            }
+
+            set
+            {
+                recycleKeepHealthItems = value;
+            }
+        }
+
+        public bool CatchPkm
+        {
+            get
+            {
+                return catchPkm;
+            }
+
+            set
+            {
+                catchPkm = value;
             }
         }
     }

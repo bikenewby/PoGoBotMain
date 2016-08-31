@@ -77,7 +77,7 @@ namespace PokemonGo.RocketAPI.Logic
         }
 
         public static async Task<IEnumerable<PokemonData>> GetPokemonToTransfer(bool keepPokemonsThatCanEvolve = false, bool prioritizeIVoverCp = false, IEnumerable<PokemonId> filter = null)
-        {    
+        {
             IEnumerable<PokemonData> myPokemons = await GetPokemons();
             IEnumerable<ulong> keepPokemonsList = new List<ulong>();
 
@@ -222,7 +222,20 @@ namespace PokemonGo.RocketAPI.Logic
         public static async Task<IEnumerable<ItemData>> GetItemsToRecycle(ISettings settings)
         {
             var myItems = await GetItems();
-            ICollection<KeyValuePair<ItemId, int>> itemRecycleFilter = settings.ItemRecycleFilter(myItems);
+            ICollection<KeyValuePair<ItemId, int>> itemRecycleFilter;
+            if (settings.UseMultiSessions)
+            {
+                if (settings.MultiSessionsConfig.SessionList[Logic.currentSession - 1].RecycleKeepHealthItems)
+                {
+                    itemRecycleFilter = settings.ItemRecycleFilterForHealth(myItems);
+                } else
+                {
+                    itemRecycleFilter = settings.ItemRecycleFilter(myItems);
+                }
+            } else
+            {
+                itemRecycleFilter = settings.ItemRecycleFilter(myItems);
+            }
 
             return myItems
                 .Where(x => itemRecycleFilter.Any(f => f.Key == x.ItemId && x.Count > f.Value))

@@ -13,10 +13,10 @@ namespace PokemonGo.RocketAPI
         private List<BOTSessionItem> sessionList;
         private readonly string sessionConfigFileName = Path.Combine(Directory.GetCurrentDirectory(), "Settings") + "/SessionsConfig.json";
 
-        public BOTSessions(String defaultUID, String defaultPWD, double defaultLat, double defaultLng, int defaultSessionMinute)
+        public BOTSessions(String defaultUID, String defaultPWD, double defaultLat, double defaultLng, int defaultSessionMinute, bool defaultRecycleKeepHealthItems, bool defaultCatchPkm)
         {
             sessionList = new List<BOTSessionItem>();
-            sessionList.Add(new BOTSessionItem(1, defaultUID, defaultPWD, defaultLat, defaultLng, defaultSessionMinute));
+            sessionList.Add(new BOTSessionItem(1, defaultUID, defaultPWD, defaultLat, defaultLng, defaultSessionMinute,defaultRecycleKeepHealthItems,defaultCatchPkm));
 
             if (System.IO.File.Exists(sessionConfigFileName))
             {

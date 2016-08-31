@@ -63,6 +63,7 @@ namespace PokemonGo.RocketAPI
         BOTSessions MultiSessionsConfig { get; set; }
 
         ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter(IEnumerable<ItemData> myItems);
+        ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilterForHealth(IEnumerable<ItemData> myItems);
         ICollection<PokemonId> PokemonsToEvolve { get; }
         ICollection<PokemonId> PokemonsToNotTransfer { get; }
         ICollection<PokemonId> PokemonsToNotCatch { get; }

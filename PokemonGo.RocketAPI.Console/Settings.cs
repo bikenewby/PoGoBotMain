@@ -352,26 +352,26 @@ namespace PokemonGo.RocketAPI.Console
             _inventoryBerries.Add(2, ItemId.ItemNanabBerry);
             _inventoryBerries.Add(3, ItemId.ItemBlukBerry);
             _inventoryBerries.Add(4, ItemId.ItemRazzBerry);
-            _sessionsConfig = new BOTSessions(UserSettings.Default.GoogleEmail, UserSettings.Default.GooglePassword, UserSettings.Default.DefaultLatitude, UserSettings.Default.DefaultLongitude, UserSettings.Default.MaxSessionRunningMinute);
+            _sessionsConfig = new BOTSessions(UserSettings.Default.GoogleEmail, UserSettings.Default.GooglePassword, UserSettings.Default.DefaultLatitude, UserSettings.Default.DefaultLongitude, UserSettings.Default.MaxSessionRunningMinute, false, UserSettings.Default.CatchPokemon);
         }
         private IDictionary<ItemId, int> _itemRecycleFilter;
-        public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter(IEnumerable<ItemData> myItems)
+        public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilterForHealth(IEnumerable<ItemData> myItems)
         {
             if (_itemRecycleFilter == null)
             {
                 _itemRecycleFilter = new Dictionary<ItemId, int>
                 {
                     // KS
-                    {ItemId.ItemPokeBall, 20},
-                    {ItemId.ItemGreatBall, 100},
-                    {ItemId.ItemUltraBall, 100},
+                    {ItemId.ItemPokeBall, 10},
+                    {ItemId.ItemGreatBall, 30},
+                    {ItemId.ItemUltraBall, 30},
                     //
                     {ItemId.ItemUnknown, 0},
-                    {ItemId.ItemRevive, 80},
-                    {ItemId.ItemHyperPotion, 50},
-                    {ItemId.ItemMaxPotion, 50},
-                    {ItemId.ItemPotion, 30},
-                    {ItemId.ItemMaxRevive, 25},
+                    {ItemId.ItemRevive, 100},
+                    {ItemId.ItemHyperPotion, 150},
+                    {ItemId.ItemMaxPotion, 150},
+                    {ItemId.ItemPotion, 150},
+                    {ItemId.ItemMaxRevive, 100},
                     {ItemId.ItemLuckyEgg, 200},
                     {ItemId.ItemIncenseOrdinary, 50},
                     {ItemId.ItemIncenseSpicy, 50},
@@ -395,6 +395,48 @@ namespace PokemonGo.RocketAPI.Console
 
             return _itemRecycleFilter;
         }
+
+        public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter(IEnumerable<ItemData> myItems)
+        {
+            if (_itemRecycleFilter == null)
+            {
+                _itemRecycleFilter = new Dictionary<ItemId, int>
+                {
+                    // KS
+                    {ItemId.ItemPokeBall, 120},
+                    {ItemId.ItemGreatBall, 120},
+                    {ItemId.ItemUltraBall, 100},
+                    //
+                    {ItemId.ItemUnknown, 0},
+                    {ItemId.ItemRevive, 20},
+                    {ItemId.ItemHyperPotion, 50},
+                    {ItemId.ItemMaxPotion, 120},
+                    {ItemId.ItemPotion, 20},
+                    {ItemId.ItemMaxRevive, 60},
+                    {ItemId.ItemLuckyEgg, 200},
+                    {ItemId.ItemIncenseOrdinary, 50},
+                    {ItemId.ItemIncenseSpicy, 50},
+                    {ItemId.ItemIncenseCool, 50},
+                    {ItemId.ItemIncenseFloral, 50},
+                    {ItemId.ItemTroyDisk, 100},
+                    {ItemId.ItemXAttack, 100},
+                    {ItemId.ItemXDefense, 100},
+                    {ItemId.ItemXMiracle, 100},
+                    {ItemId.ItemSpecialCamera, 100},
+                    {ItemId.ItemIncubatorBasicUnlimited, 100},
+                    {ItemId.ItemIncubatorBasic, 100},
+                    {ItemId.ItemPokemonStorageUpgrade, 100},
+                    {ItemId.ItemItemStorageUpgrade, 100}
+                };
+            }
+
+            CalculateGroupAmounts(_inventoryBalls, MaxBalls, myItems);
+            CalculateGroupAmounts(_inventoryBerries, MaxBerries, myItems);
+            CalculateGroupAmounts(_inventoryPotions, MaxPotions, myItems);
+
+            return _itemRecycleFilter;
+        }
+
         private void CalculateGroupAmounts(SortedList<int, ItemId> inventoryGroup, int maxQty, IEnumerable<ItemData> myItems)
         {
             var amountRemaining = maxQty;
