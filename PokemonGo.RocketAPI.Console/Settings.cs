@@ -334,7 +334,7 @@ namespace PokemonGo.RocketAPI.Console
         private readonly SortedList<int, ItemId> _inventoryPotions = new SortedList<int, ItemId>();
         private const int MaxBalls = 200;
         private const int MaxBerries = 20;
-        private const int MaxPotions = 50;
+        private const int MaxPotions = 300;
         public Settings()
         {
             _inventoryBalls.Add(1, ItemId.ItemMasterBall);
@@ -362,16 +362,17 @@ namespace PokemonGo.RocketAPI.Console
                 _itemRecycleFilter = new Dictionary<ItemId, int>
                 {
                     // KS
-                    {ItemId.ItemPokeBall, 10},
-                    {ItemId.ItemGreatBall, 30},
-                    {ItemId.ItemUltraBall, 30},
+                    {ItemId.ItemPokeBall, 0},
+                    {ItemId.ItemGreatBall, 20},
+                    {ItemId.ItemUltraBall, 40},
                     //
                     {ItemId.ItemUnknown, 0},
-                    {ItemId.ItemRevive, 100},
-                    {ItemId.ItemHyperPotion, 150},
-                    {ItemId.ItemMaxPotion, 150},
-                    {ItemId.ItemPotion, 150},
-                    {ItemId.ItemMaxRevive, 100},
+                    {ItemId.ItemRevive, 200},
+                    {ItemId.ItemSuperPotion,0},
+                    {ItemId.ItemHyperPotion, 250},
+                    {ItemId.ItemMaxPotion, 250},
+                    {ItemId.ItemPotion, 0},
+                    {ItemId.ItemMaxRevive, 200},
                     {ItemId.ItemLuckyEgg, 200},
                     {ItemId.ItemIncenseOrdinary, 50},
                     {ItemId.ItemIncenseSpicy, 50},

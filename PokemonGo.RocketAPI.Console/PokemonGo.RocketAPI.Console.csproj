@@ -55,10 +55,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>A07B2E037AF53DEB46D48BFF043E30F252387C8D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>1ED1A805359FA7BA2685237AA523ADF1058051EA</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PokemonGo.RocketAPI.Console_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>PokemonGo.RocketAPI.Console_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -114,6 +114,7 @@
     <None Include="packages.config" />
     <None Include="PokemonGo.RocketAPI.Console_1_TemporaryKey.pfx" />
     <None Include="PokemonGo.RocketAPI.Console_2_TemporaryKey.pfx" />
+    <None Include="PokemonGo.RocketAPI.Console_3_TemporaryKey.pfx" />
     <None Include="PokemonGo.RocketAPI.Console_TemporaryKey.pfx" />
     <None Include="UserSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
