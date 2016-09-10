@@ -232,11 +232,15 @@ namespace PokemonGo.RocketAPI.Logic
                 {
                     Logger.Write("End of session#" + currentSession + Environment.NewLine);
                     loadedSession = false;
+                    await BotStats.UpdateConsoleTitle();
                     await Execute();
                 }
             }
             if (BotStats.sessionExit)
+            {
+                await BotStats.UpdateConsoleTitle();
                 Logger.Write("BOT Ended...");
+            }
         }
 
         public async Task RefreshTokens()
